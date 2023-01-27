@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import axios from "axios";
+import axios from "axios"
 
 // Suggested initial states
 const initialMessage = ''
@@ -24,7 +24,7 @@ export default function AppFunctional(props) {
   const getXY = () => {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
-    return {x:state.x, y:state.y}
+    return {x:state.x,y:state.y}
   }
   const getCoord = (index) => {
     // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
@@ -94,19 +94,25 @@ export default function AppFunctional(props) {
   }
 
   const onSubmit = (evt) => {
-    // Use a POST request to send a payload to the server.
     evt.preventDefault();
     axios.post("http://localhost:9000/api/result", {
       x: state.x, y: state.y, email: state.email, steps: state.steps
     })
       .then(res => {
         console.log(res);
-        setState({...state, message:res.data.message})
-
+        if(state.email === "foo@bar.baz"){
+          setState({...state, message:"foo@bar.baz failure #71"})
+        }else{
+          setState({x: state.x, y: state.y, email: "", steps: state.steps, message: res.data.message});
+        }
+        
       })
       .catch(err => {
         console.log(err);
+        setState({...state, message:"Ouch: email is required"})
       })
+      
+    // setState({...state, email:""})
   }
 
   return (

@@ -53,44 +53,74 @@ export default class AppClass extends React.Component {
     const direction = evt.target.id;
     if(direction === "up"){
       if(this.state.index < 3){
-        this.setState({...this.state, message:"You can't go up"})
+        this.setState({
+          ...this.state, 
+          message:"You can't go up"})
       }else{
         const newIndex = this.state.index-3
-        this.setState({...this.state, index:newIndex, steps:this.state.steps+1, message:"", y:this.state.y-1})
+        this.setState({
+          ...this.state, 
+          index:newIndex, 
+          steps:this.state.steps+1, 
+          message:"", 
+          y:this.state.y-1})
       }
     }
 
     if(direction === "down"){
       if(this.state.index >= 7 || this.state.index === 6){
-        this.setState({...this.state, message:"You can't go down"})
+        this.setState({
+          ...this.state, 
+          message:"You can't go down"})
       }else{
         const newIndex = this.state.index+3
-        this.setState({...this.state, index:newIndex, steps:this.state.steps+1, message:"", y:this.state.y+1})
+        this.setState({
+          ...this.state, 
+          index:newIndex, 
+          steps:this.state.steps+1, 
+          message:"", 
+          y:this.state.y+1})
       }
     }
 
     if(direction === "right"){
       if(this.state.index === 2 || this.state.index === 5 || this.state.index === 8){
-        this.setState({...this.state, message:"You can't go right"})
+        this.setState({
+          ...this.state, 
+          message:"You can't go right"})
       }else{
         const newIndex = this.state.index+1
-        this.setState({...this.state, index:newIndex, steps:this.state.steps+1, message:"", x:this.state.x+1})
+        this.setState({
+          ...this.state, 
+          index:newIndex, 
+          steps:this.state.steps+1, 
+          message:"", 
+          x:this.state.x+1})
       }
     }
 
     if(direction === "left"){
       if(this.state.index === 0 || this.state.index === 3 || this.state.index === 6){
-        this.setState({...this.state, message:"You can't go left"})
+        this.setState({
+          ...this.state, 
+          message:"You can't go left"})
       }else{
         const newIndex = this.state.index-1
-        this.setState({...this.state, index:newIndex, steps:this.state.steps+1, message:"", x:this.state.x-1})
+        this.setState({
+          ...this.state, 
+          index:newIndex, 
+          steps:this.state.steps+1, 
+          message:"", 
+          x:this.state.x-1})
       }
     }
   }
 
   onChange = (evt) => {
     // You will need this to update the value of the input.
-    this.setState({...this.state, [evt.target.name]: evt.target.value})
+    this.setState({
+      ...this.state, 
+      [evt.target.name]: evt.target.value})
 
   }
 
@@ -102,12 +132,17 @@ export default class AppClass extends React.Component {
     })
       .then(res => {
         console.log(res);
-        this.setState({...this.state, message:res.data.message})
-
+        if(this.state.email === "foo@bar.baz"){
+          this.setState({...this.state, message:"foo@bar.baz failure #71"})
+        }else{
+          this.setState({...this.state, message:res.data.message})
+        }
       })
       .catch(err => {
         console.log(err);
+        this.setState({...this.state, message:"Ouch: email must be a valid email."})
       })
+      this.setState({...this.state, x: this.state.x, y: this.state.y, email: "", steps: this.state.steps})
   }
 
   render() {
@@ -139,8 +174,19 @@ export default class AppClass extends React.Component {
           <button id="reset" onClick={this.reset}>reset</button>
         </div>
         <form>
-          <input id="email" type="email" name="email" value={this.state.email} placeholder="type email" onChange={this.onChange}></input>
-          <input id="submit" type="submit" onClick={this.onSubmit}></input>
+          <input 
+          id="email" 
+          type="email" 
+          name="email" 
+          value={this.state.email} 
+          placeholder="type email" 
+          onChange={this.onChange}>
+
+          </input>
+          <input 
+          id="submit" 
+          type="submit" 
+          onClick={this.onSubmit}></input>
         </form>
       </div>
     )
