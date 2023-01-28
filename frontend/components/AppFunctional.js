@@ -103,13 +103,13 @@ export default function AppFunctional(props) {
         if(state.email === "foo@bar.baz"){
           setState({...state, message:"foo@bar.baz failure #71"})
         }else{
-          setState({x: state.x, y: state.y, email: "", steps: state.steps, message: res.data.message});
+          setState({x: state.x, y: state.y, email: "", steps:state.steps, message: res.data.message});
         }
         
       })
       .catch(err => {
         console.log(err);
-        setState({...state, message:"Ouch: email is required"})
+        setState({...state, message:err.response.data.message})
       })
       
     // setState({...state, email:""})
