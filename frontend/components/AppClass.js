@@ -130,34 +130,12 @@ export default class AppClass extends React.Component {
     axios.post("http://localhost:9000/api/result", {
       x: this.state.x, y: this.state.y, email: this.state.email, steps: this.state.steps
     })
-      // .then(res => {
-      //   console.log(res);
-      //   if(this.state.email === "foo@bar.baz"){
-      //     this.setState({...this.state, message: "foo@bar.baz failure #71"})
-      //   }else{
-      //     this.setState({...this.state, message:res.data.message})
-      //   }
-        
-      // })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.setState({ ...this.state, message: res.data.message });
       })
-      // .catch(err => {
-      //   console.log(err);
-      //   if(this.state.email === "foo@bar.baz"){
-      //     this.setState({...this.state, message: "foo@bar.baz failure #71"})
-      //   }else{
-      //     if(this.state.email === ""){
-      //       this.setState({...this.state, message:"Ouch: email must be a valid email"})
-      //     }else{
-      //       this.setState({...this.state, message:"Ouch: email must be a valid email"})
-      //     }
-      //   }
-      // })
-
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         this.setState({...this.state, message:err.response.data.message})
       })
       this.setState({...this.state, x: this.state.x, y: this.state.y, email: "", steps: this.state.steps})

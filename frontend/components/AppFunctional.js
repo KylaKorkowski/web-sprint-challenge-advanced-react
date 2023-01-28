@@ -99,7 +99,7 @@ export default function AppFunctional(props) {
       x: state.x, y: state.y, email: state.email, steps: state.steps
     })
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if(state.email === "foo@bar.baz"){
           setState({...state, message:"foo@bar.baz failure #71"})
         }else{
@@ -108,7 +108,7 @@ export default function AppFunctional(props) {
         
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         setState({...state, message:err.response.data.message})
       })
       
